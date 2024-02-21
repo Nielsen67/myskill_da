@@ -1,5 +1,6 @@
 USE MySkill_FinalProject
 
+
 -- NOMOR 1
 --Selama transaksi yang terjadi selama 2021, pada bulan apa total nilai transaksi (after_discount) paling besar? Gunakan is_valid = 1 untuk memfilter data transaksi.
 SELECT TOP 1
@@ -18,7 +19,8 @@ SELECT TOP 1
 	SUM(od.after_discount) AS total_sales
 FROM order_detail od
 JOIN sku_detail sd ON od.sku_id = sd.id
-WHERE DATEPART(YEAR, od.order_date) = '2022' AND od.is_valid = 1
+WHERE DATEPART(YEAR, od.order_date) = '2022' 
+AND od.is_valid = 1
 GROUP BY sd.category
 ORDER BY 2 DESC
 
@@ -50,7 +52,8 @@ SELECT
 	transaksi_2021.tsales AS sales_for_2021,
 	transaksi_2022.tsales AS sales_for_2022,
 	transaksi_2022.tsales - transaksi_2021.tsales AS growth,
-	CONCAT (ROUND((transaksi_2022.tsales - transaksi_2021.tsales) / transaksi_2021.tsales * 100, 2), '%')AS growth_percentage,
+	CONCAT (ROUND((transaksi_2022.tsales - transaksi_2021.tsales) / transaksi_2021.tsales * 100, 2), '%') 
+AS growth_percentage,
 	CASE 
 		WHEN transaksi_2022.tsales > transaksi_2021.tsales THEN 'INCREASE'
 		WHEN transaksi_2022.tsales < transaksi_2021.tsales THEN 'DECREASE'
@@ -113,12 +116,9 @@ GROUP BY
 	WHEN LOWER(sku_name) LIKE LOWER('%Lenovo%') THEN 'Lenovo' 
 	END 
 )
-
 SELECT * 
 FROM top_brand_sales
 WHERE brand IS NOT NULL
 ORDER BY total_sales DESC
 
 
-
-SELECT * FROM sku_detail
